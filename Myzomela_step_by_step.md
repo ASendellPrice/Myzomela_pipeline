@@ -1,18 +1,21 @@
 # Step by step bioinformatics guide for Sonya's Myzomela project: From rawdata to pop gen analyses
 A. Sendell-Price, Jan 2021.
 
-## STEP 1: Log in to ARC and setting up a directory for the project
+## STEP 1: Log in to ARC move into Myzomela project directory
 Let's log into Arcus-htc . . .
+Note: Replace OSS with your single sign on
 ```
-ssh zoolXXXX@oscgate.arc.ox.ac.uk
+ssh OSS@oscgate.arc.ox.ac.uk
 ssh arcus-htc
 
 ```
 
 Move into data storage for project zool-zost
 ```
-cd /data/zool-zost/
+cd /data/zool-zost/Myzomela
 ```
+
+## STEP 2: Download reference genome and build reference dictionary
 
 
 
