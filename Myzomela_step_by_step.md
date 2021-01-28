@@ -2,8 +2,7 @@
 A. Sendell-Price, Jan 2021.
 
 ## STEP 1: Log in to ARC move into Myzomela project directory
-Let's log into Arcus-htc . . .
-Note: Replace OSS with your single sign on
+Let's log into Arcus-htc (replace OSS with your single sign on).
 ```
 ssh OSS@oscgate.arc.ox.ac.uk
 ssh arcus-htc
