@@ -52,6 +52,7 @@ samtools faidx Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 Before we dive into the bioinformatics pipeline, we will need to create a list of samples we want to use in the planned analyses. Some analyses (e.g. introgression, SFS, phylogeny building) require use of an outgroup, so if you plan to conduct these you will need to identify publically available WGS data from a suitable outgroup (or we can use other *Meliphagidae* samples included in the Novogene dataset).
 
 The sample list you create needs to be a simple text file (called samples.txt) with one sample ID per line. Like below:
+Note: make sure there are no spaces or tabs in the file.
 ```
 cat samples.txt
 ```
@@ -61,3 +62,5 @@ ABY15
 ABY76
 AMB1
 ```
+
+## STEP 4: Filter raw sequencing data for samples.
