@@ -35,10 +35,12 @@ gunzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 bgzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna
 ```
 
+When it comes to aligning sequencing reads to the reference genome we will need to have created an index for our reference genome.
 
-Create genome index and reference dictionary:
+**Indexing** a genome is analogous to indexing a book. If you want to know on which page a certain word appears or a chapter begins, it is much more efficient/faster to look it up in a pre-built index than going through every page of the book until you found it. Same goes for alignments. Indices allow the aligner (Bowtie2) to narrow down the potential origin of a query sequence within the genome, saving both time and memory.
+
+Create genome index using samtools:
 ```
-cd
 module load samtools
-samtools faidx GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+samtools faidx Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 ```
