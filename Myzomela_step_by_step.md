@@ -1,4 +1,4 @@
-# Step by step bioinformatics guide for Sonya's Myzomela project: From rawdata to pop gen analyses
+# Step by step bioinformatics guide for Sonya's *Myzomela* project: From rawdata to pop gen analyses
 A. Sendell-Price, Jan 2021.
 
 ## STEP 1: Log in to ARC move into Myzomela project directory
