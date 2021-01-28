@@ -16,11 +16,11 @@ cd /data/zool-zost/Myzomela
 
 ## STEP 2: Download reference genome and build reference dictionary
 Although there are currently no publically available genomes for *Myzomela* species there are four available for species in the wider *Meliphagidae family*. These include:
-* Lichenostomus cassidix (helmeted honeyeater)
+* *Lichenostomus cassidix* (helmeted honeyeater) [GCA_008360975.1](https://www.ncbi.nlm.nih.gov/assembly/GCA_008360975.1/)
 *
 *
 *
- 
+
 There are 4 publically available
 
 
