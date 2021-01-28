@@ -1,15 +1,15 @@
 # Step by step bioinformatics guide for Sonya's *Myzomela* project: From rawdata to pop gen analyses
 A. Sendell-Price, Jan 2021.
 
-## STEP 1: Log in to ARC move into Myzomela project directory
-Let's log into Arcus-htc (replace OSS with your single sign on).
+## STEP 1: Log in to ARC move into *Myzomela* project directory
+Let's log into Arcus-htc (replace OSS with your single sign on):
 ```
 ssh OSS@oscgate.arc.ox.ac.uk
 ssh arcus-htc
 
 ```
 
-Move into data storage for project zool-zost
+Move into Myzomela directory in "/data/zool-zost/":
 ```
 cd /data/zool-zost/Myzomela
 ```
@@ -26,5 +26,22 @@ So now we need to download the assembly from NCBI using command "wget" and save 
 
 ```
 wget --timestamping ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/008/360/975/GCA_008360975.1_HeHo_1.0//GCA_008360975.1_HeHo_1.0_genomic.fna.gz -P Ref_Genome/
+
+```
+
+The downloaded assembly has been compressed using gzip. Irritatingly, some of the downstream steps require the assembly to be compressed using bgzip instead. So now we need to decompress the file (using gunzip) and compress again using bgzip.
+
+```
+gunzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+bgzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna
+
+```
+
+
+Create genome index and reference dictionary:
+```
+cd
+module load samtools
+samtools faidx GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 
 ```
