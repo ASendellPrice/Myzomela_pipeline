@@ -41,7 +41,7 @@ When it comes to aligning sequencing reads to the reference genome we will need 
 
 **Indexing** a genome is analogous to indexing a book. If you want to know on which page a certain word appears or a chapter begins, it is much more efficient/faster to look it up in a pre-built index than going through every page of the book until you found it. Same goes for alignments. Indices allow the aligner (Bowtie2) to narrow down the potential origin of a query sequence within the genome, saving both time and memory.
 
-Create genome index using samtools:
+Create genome index using samtools [faidx](http://www.htslib.org/doc/faidx.html):
 This will produce two files with suffixes ".fai" and ".gzi"
 ```
 module load samtools
