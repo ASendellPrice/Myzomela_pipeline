@@ -20,7 +20,9 @@ Although there are currently no publically available genomes for *Myzomela* spec
 * *Grantiella picta* (painted honeyeater) [GCA_013397955.1](https://www.ncbi.nlm.nih.gov/assembly/GCA_013397955.1)
 * *Anthochaera phrygia* (Regent honeyeater) [GCA_009430485.1](https://www.ncbi.nlm.nih.gov/assembly/GCA_009430485.1)
 
-All of these are scaffold level assemblies i.e. not assembled to chromosome level. This isn't too bad as we can find the position of scaffolds relative to a chromosome level assembly later using [Satsuma](http://satsuma.sourceforge.net). More about that later. We will be using the Lichenostomus cassidix as a reference genome as this has the lowest number of scaffolds (1,912).
+All of these are scaffold level assemblies i.e. not assembled to chromosome level. This isn't too bad as we can find the position of scaffolds relative to a chromosome level assembly later using [Satsuma](http://satsuma.sourceforge.net). More about that later.
+
+We will be using the *Lichenostomus cassidix* as a reference genome as this is the least fragmented of the genome available, having the lowest number of scaffolds (1,912). In contrast *Grantiella picta* and *Anthochaera phrygia* have 15k and 265k scaffolds respectively.   
 
 So now we need to download the assembly from NCBI using command "wget" and save the file in a new directory called "Ref_Genome".
 
@@ -40,6 +42,7 @@ When it comes to aligning sequencing reads to the reference genome we will need 
 **Indexing** a genome is analogous to indexing a book. If you want to know on which page a certain word appears or a chapter begins, it is much more efficient/faster to look it up in a pre-built index than going through every page of the book until you found it. Same goes for alignments. Indices allow the aligner (Bowtie2) to narrow down the potential origin of a query sequence within the genome, saving both time and memory.
 
 Create genome index using samtools:
+This will produce two files with suffixes ".fai" and ".gzi"
 ```
 module load samtools
 samtools faidx Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
