@@ -26,7 +26,6 @@ So now we need to download the assembly from NCBI using command "wget" and save 
 
 ```
 wget --timestamping ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/008/360/975/GCA_008360975.1_HeHo_1.0//GCA_008360975.1_HeHo_1.0_genomic.fna.gz -P Ref_Genome/
-
 ```
 
 The downloaded assembly has been compressed using gzip. Irritatingly, some of the downstream steps require the assembly to be compressed using bgzip instead. So now we need to decompress the file (using gunzip) and compress again using bgzip.
@@ -34,7 +33,6 @@ The downloaded assembly has been compressed using gzip. Irritatingly, some of th
 ```
 gunzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 bgzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna
-
 ```
 
 
@@ -43,5 +41,4 @@ Create genome index and reference dictionary:
 cd
 module load samtools
 samtools faidx GCA_008360975.1_HeHo_1.0_genomic.fna.gz
-
 ```
