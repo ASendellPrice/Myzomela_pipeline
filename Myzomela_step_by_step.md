@@ -34,6 +34,7 @@ The downloaded assembly has been compressed using gzip. Irritatingly, some of th
 
 ```
 gunzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+module load samtools
 bgzip Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna
 ```
 
@@ -44,7 +45,6 @@ When it comes to aligning sequencing reads to the reference genome we will need 
 Create genome index using samtools [faidx](http://www.htslib.org/doc/faidx.html):
 This will produce two files with suffixes ".fai" and ".gzi"
 ```
-module load samtools
 samtools faidx Ref_Genome/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 ```
 
