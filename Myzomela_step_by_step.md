@@ -11,7 +11,7 @@ ssh arcus-htc
 
 Move into Myzomela directory in "/data/zool-zost/":
 ```
-cd /data/zool-zost/Myzomela
+cd /data/zool-zir/Myzomela
 ```
 
 ## STEP 2: Download reference genome and build reference dictionary
@@ -65,3 +65,6 @@ AMB1
 ```
 
 ## STEP 4: Filter raw sequencing data for samples.
+rm raw_data/*/*.bam*
+rm raw_data/*/*.g.vcf.gz.tbi
+rm raw_data/*/*.log
