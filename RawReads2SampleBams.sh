@@ -45,7 +45,7 @@ FASTP=/data/zool-zir/Myzomela/BIN/fastp
 
 # STEP 2:
 # Set up for loop to conduct filtering for each read pair
-for ReadPair in `ls ${SAMPLE_NAME}_*_1.fq.gz | cut -f1,2,3,4 -d'_'`
+for ReadPair in $(ls ${SAMPLE_NAME}_*_1.fq.gz | cut -f1,2,3,4 -d'_')
 do
 
   #Use Fastp to conduct automated filtering of fastq files
