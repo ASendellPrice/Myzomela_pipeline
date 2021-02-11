@@ -20,7 +20,7 @@ Sample_List=samples.txt
 
 # STEP 2:
 # Use slurm array task ID to alocate sample name and directory
-SAMPLE_NAME=$(cat $Sample_List | head -n $SLURM_ARRAY_TASK_ID | tail -1)
+SAMPLE_NAME=$(head -n $SLURM_ARRAY_TASK_ID $Sample_List | tail -n 1)
 SAMPLE_DIRECTORY=raw_data/${SAMPLE_NAME}
 #Create directories for output
 mkdir filtered_reads
