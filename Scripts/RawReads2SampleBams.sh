@@ -41,7 +41,7 @@ cd $SAMPLE_DIRECTORY
 
 # STEP 1:
 # Define path to Fastp:
-FASTP=/data/zool-zir/Myzomela/BIN/fastp
+FASTP=/data/zool-zir/BIN/fastp
 
 # STEP 2:
 # Set up for loop to conduct filtering for each read pair
