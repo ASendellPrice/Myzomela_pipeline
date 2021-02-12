@@ -136,7 +136,7 @@ The working directory contains the text file "samples.txt" which lists the sampl
 The reference genome we want to use is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
 
 ### ASSUMPTION 4:
-Line four of RawReads2SampleBams.sh is updated so that job array range ("--array=1-150:1") matches the number of samples in "samples.txt". This needs to be updated to "--array=1-65:1" (as there are 65 samples in "samples.txt" that we want to process).
+Line four of RawReads2SampleBams.sh is updated so that job array range ("--array=1-150:1") matches the number of samples in "samples.txt". This needs to be updated to "--array=1-65:1" (as there are 65 samples in "samples.txt" that we want to process). This can be updated using nano. Can you remember how to do this?
 
 ```
 #This is what the first nine lines of the script look like:
@@ -151,13 +151,6 @@ Line four of RawReads2SampleBams.sh is updated so that job array range ("--array
 #SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
 ```
-
-<details>
-	<summary>This can be updated  using nano. Can you remember how to do this?</summary>
-	```sh
-	nano Scripts/RawReads2SampleBams.sh
-	```
-</details>
 
 **Note:** Also need to update line nine so that notification emails are sent to the correct email address.
 
