@@ -86,6 +86,8 @@ mkdir Scripts
 cp /data/zool-zir/Bioinformatics_pipelines/RawReads2SampleBams.sh Scripts/
 ```
 
+**Note:** This script can also be viewed on [gitHub](https://github.com/ASendellPrice/Myzomela/blob/main/Scripts/RawReads2SampleBams.sh).
+
 This single script will launch a job array (1 job per sample) that takes care of all the filtering, alignment and merging steps. This script has a couple of assumptions.
 
 ### ASSUMPTION 1:
@@ -150,4 +152,14 @@ Line four of RawReads2SampleBams.sh is updated so that job array range ("--array
 ```
 
 **Note:** Also need to update line nine so that notification emails are sent to the correct email address.
+
+## STEP 5: Submitting the script
+
+Running the pipeline is simply a case of submitting the following command on arcus-htc:
+
+```
+sbatch Scripts/RawReads2SampleBams.sh
+```
+
+
 CHANGE PERMISSIONS --   chmod -R a+rwx Myzomela
