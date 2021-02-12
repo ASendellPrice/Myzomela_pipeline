@@ -134,25 +134,20 @@ The working directory contains the text file "samples.txt" which lists the sampl
 The reference genome we want to use is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
 
 ### ASSUMPTION 4:
-Line four of RawReads2SampleBams.sh is updated so that the job array range matches the number of samples in
-"samples.txt". This needs to be updated to "1-65" (as there are 65 samples in "samples.txt" that we want to process).
+Line four of RawReads2SampleBams.sh is updated so that job array range ("--array=1-150:1") matches the number of samples in "samples.txt". This needs to be updated to "--array=1-65:1" (as there are 65 samples in "samples.txt" that we want to process). This can be updated  using nano. Can you remember how to do this?
 
 ```
-head -n 10 Scripts/RawReads2SampleBams.sh
-```
+1 #!/bin/bash
+2 #SBATCH --nodes=1
+3 #SBATCH --time=62:00:00
+4 #SBATCH --array=1-150:1
+5 #SBATCH --job-name=Filter2Bam_Pipeline
+6 #SBATCH --output=Filter2Bam.%A_%a.out
+7 #SBATCH --error=Filter2Bam.%A_%a.error
+8 #SBATCH --mail-type=FAIL
+9 #SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
 ```
-#!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --time=62:00:00
-#SBATCH --array=1-150:1
-#SBATCH --job-name=Filter2Bam_Pipeline
-#SBATCH --output=Filter2Bam.%A_%a.out
-#SBATCH --error=Filter2Bam.%A_%a.error
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
-```
-Note: also need to updae line nine so that notification emails are sent to the correct email address.
-
+**Note:** Also need to update line nine so that notification emails are sent to the correct email address.
 CHANGE PERMISSIONS --   chmod -R a+rwx Myzomela
