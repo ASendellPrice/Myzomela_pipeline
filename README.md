@@ -79,8 +79,10 @@ Our raw sequencing reads need to pass through a number of bioinformatic steps be
 
 All three of these steps are conducted using the pipeline (RawReads2SampleBams.sh) that I have developed for our Novogene sequencing data. This single script will launch a job array (1 job per sample) that takes care of all the filtering, alignment and merging steps. This script has a couple of assumptions.
 
-* raw sequencing reads for an individual are saved in a directory called "sample id" and this directory sits within a directory called "raw_data" like so:
+### ASSUMPTION 1:
+Raw sequencing reads for an individual are saved in a directory called "sample id" and this directory sits within a directory called "raw_data" like so:
 ```
+#Let's preview the structure of directory "raw_data" . . .
 tree raw_data
 ```
 
@@ -101,11 +103,11 @@ raw_data/
     ├── AMB2_FDSW202513073-1r_HHG3GDSXY_L3_2.fq.gz
     └── MD5.txt
 ```
-**NOTE:** We have used paired-end sequencing, so have two files per lane of sequencing (Forward: "_1.fq.gz" and Reverse: "_2.fq.gz"). Together these are called a **read pair**. Here is some explanation of what each read file name means:
+**NOTE:** As we have used paired-end sequencing, we have two files per lane of sequencing (Forward: "_1.fq.gz" and Reverse: "_2.fq.gz"). Together these are called a **read pair**. Here is some explanation of what each read file name means:
 
 ```
 1    2                3         4  5 6
-AMB2_FDSW202513073-1r_HHG3GDSXY_L3_2.fq.gz
+AMB2_FDSW202513073-1r_HHG3GDSXY_L3_1.fq.gz
 ```
 1. AMB2 = Name of sample
 2. FDSW202513073-1r = reference no. unique to Illumina HighSeq machine
@@ -114,7 +116,7 @@ AMB2_FDSW202513073-1r_HHG3GDSXY_L3_2.fq.gz
 5. Read direction (1 = forward, 2 = reverse)
 6. fq.gz = compressed fastq format
 
-**ALSO NOTE:** Not all samples have the same number of read pairs present in their raw_data directories. Here ABY76 and AMB1 both have a single pair of sequencing reads, whereas AMB2 has two. This is because AMB2 has been sequenced across multiple sequencing lanes (likely this sample was of low concentration and required twice the sequencing effort to produce the data quantity we requested).
+**ALSO NOTE:** Not all samples have the same number of read pairs present in their raw_data directories. Here ABY76 and AMB1 both have a single pair of sequencing reads, whereas AMB2 has two. This is because AMB2 has been sequenced across multiple (2) sequencing lanes (likely this sample was of low concentration and required twice the sequencing effort to produce the data quantity we requested).
 
 * the text file "samples.txt" is present (we created this during the step above).
 * the reference genome is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
