@@ -77,10 +77,19 @@ Our raw sequencing reads need to pass through a number of bioinformatic steps be
 * Map filtered sequencing reads to a reference genome of choice (in our case *Lichenostomus cassidix*) - conducted using [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml).
 * As most of the samples have been sequenced across multiple lanes we have multiple reads pairs and therefore multiple bams per sample. Where samples have multiple bams we will merge them using the aptly named "merge" command of [samtools](http://satsuma.sourceforge.net). Merged bams will then be indexed using the samtools "index" command.
 
-All three of these steps are conducted using the pipeline (RawReads2SampleBams.sh) that I have developed for our Novogene sequencing data. This single script will launch a job array (1 job per sample) that takes care of all the filtering, alignment and merging steps. This script has a couple of assumptions.
+All three of these steps are conducted using the pipeline (RawReads2SampleBams.sh) that I have developed for our Novogene sequencing data. This script is saved in a shared folder in project "zool-zir" and can be copied to our working directory like so:
+
+```
+#Create a directory where we will store scripts
+mkdir Scripts
+#Copy "RawReads2SampleBams.sh" from shared folder to "Scripts" directory
+cp /data/zool-zir/Bioinformatics_pipelines/RawReads2SampleBams.sh Scripts/
+```
+
+This single script will launch a job array (1 job per sample) that takes care of all the filtering, alignment and merging steps. This script has a couple of assumptions.
 
 ### ASSUMPTION 1:
-Raw sequencing reads for an individual are saved in a directory called "sample id" and this directory sits within a directory called "raw_data" like so:
+Raw sequencing reads for an individual are saved in a directory called "sample id" and this directory sits within a parent directory called "raw_data" like so:
 ```
 #Let's preview the structure of directory "raw_data" . . .
 tree raw_data
@@ -118,10 +127,15 @@ AMB2_FDSW202513073-1r_HHG3GDSXY_L3_1.fq.gz
 
 **ALSO NOTE:** Not all samples have the same number of read pairs present in their raw_data directories. Here ABY76 and AMB1 both have a single pair of sequencing reads, whereas AMB2 has two. This is because AMB2 has been sequenced across multiple (2) sequencing lanes (likely this sample was of low concentration and required twice the sequencing effort to produce the data quantity we requested).
 
-* the text file "samples.txt" is present (we created this during the step above).
-* the reference genome is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
-* line 4 of RawReads2SampleBams.sh is updated so that the job array range matches the number of samples in
-"samples.txt"
+### ASSUMPTION 2:
+The working directory contains the text file "samples.txt" which lists the samples we are going to work with. We created this during step 3.
+
+### ASSUMPTION 3:
+The reference genome we want to use is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
+
+### ASSUMPTION 4:
+Line four of RawReads2SampleBams.sh is updated so that the job array range matches the number of samples in
+"samples.txt". This needs to be updated to "1-65" (as there are 65 samples in "samples.txt" that we want to process).
 
 ```
 head -n 10 Scripts/RawReads2SampleBams.sh
