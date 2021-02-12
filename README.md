@@ -161,6 +161,3 @@ Running the pipeline is simply a case of submitting the following command on arc
 ```
 sbatch Scripts/RawReads2SampleBams.sh
 ```
-
-
-CHANGE PERMISSIONS --   chmod -R a+rwx Myzomela
