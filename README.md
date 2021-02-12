@@ -101,6 +101,20 @@ raw_data/
     ├── AMB2_FDSW202513073-1r_HHG3GDSXY_L3_2.fq.gz
     └── MD5.txt
 ```
+**NOTE:** We have used paired-end sequencing, so have two files per lane of sequencing (Forward: "_1.fq.gz" and Reverse: "_2.fq.gz"). Together these are called a **read pair**. Here is some explanation of what each read file name means:
+
+```
+1    2                3         4  5 6
+AMB2_FDSW202513073-1r_HHG3GDSXY_L3_2.fq.gz
+```
+1. AMB2 = Name of sample
+2. FDSW202513073-1r = reference no. unique to Illumina HighSeq machine
+3. HHG3GDSXY = reference no. of flow cell
+4. L3 = Lane number on flow cell
+5. Read direction (1 = forward, 2 = reverse)
+6. fq.gz = compressed fastq format
+
+**ALSO NOTE:** Not all samples have the same number of read pairs present in their raw_data directories. Here ABY76 and AMB1 both have a single pair of sequencing reads, whereas AMB2 has two. This is because AMB2 has been sequenced across multiple sequencing lanes (likely this sample was of low concentration and required twice the sequencing effort to produce the data quantity we requested).
 
 * the text file "samples.txt" is present (we created this during the step above).
 * the reference genome is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
@@ -123,6 +137,6 @@ head -n 10 Scripts/RawReads2SampleBams.sh
 #SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
 ```
-Note: also need to updae line nine so that notification emails are sent to the correct email address. 
+Note: also need to updae line nine so that notification emails are sent to the correct email address.
 
 CHANGE PERMISSIONS --   chmod -R a+rwx Myzomela
