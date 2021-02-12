@@ -154,7 +154,7 @@ Line four of RawReads2SampleBams.sh is updated so that job array range ("--array
 
 <details>
 	<summary>This can be updated  using nano. Can you remember how to do this?</summary>
-	```javascript
+	```sh
 	nano Scripts/RawReads2SampleBams.sh
 	```
 </details>
