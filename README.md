@@ -6,7 +6,6 @@ Let's log into Arcus-htc (replace OSS with your single sign on):
 ```
 ssh OSS@oscgate.arc.ox.ac.uk
 ssh arcus-htc
-
 ```
 
 Move into Myzomela directory in "/data/zool-zir/":
@@ -104,7 +103,7 @@ raw_data/
 ```
 
 * the text file "samples.txt" is present (we created this during the step above).
-* the reference genome is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (we done this in step 2).
+* the reference genome is stored in directory "Ref_Genome" and has been indexed with both samtools and bowtie2 (this was done in step 2).
 * line 4 of RawReads2SampleBams.sh is updated so that the job array range matches the number of samples in
 "samples.txt"
 
@@ -124,3 +123,6 @@ head -n 10 Scripts/RawReads2SampleBams.sh
 #SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
 ```
+Note: also need to updae line nine so that notification emails are sent to the correct email address. 
+
+CHANGE PERMISSIONS --   chmod -R a+rwx Myzomela
