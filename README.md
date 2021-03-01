@@ -163,7 +163,7 @@ sbatch Scripts/RawReads2SampleBams.sh
 ```
 
 ## STEP 6: Downloading fastp QC reports
-Open a new terminal and move to a folder (using cd commant) on your laptop where you want to save the fastp reports. Then use the following command (changing OSS to your username):
+Open a new terminal and from a directory on your laptop where you want to save the fastp reports. Then use the following command (changing OSS to your username):
 
 ```
 scp -r OSS@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
