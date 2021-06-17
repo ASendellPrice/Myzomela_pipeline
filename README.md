@@ -170,3 +170,17 @@ scp -r OSS@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
 ```
 
 ## STEP 6: SNP Calling
+Now that we have filtered and aligned each samples reads we are ready to call genotypes! Various software (e.g. GATK, samtools,  SOAPsnp, ANGSD . . .) can be used to conduct SNP calling and no one agrees on which software is the best. We are going to use ANGSD as it perfroms well with low depth sequencing and has the added benefit of incorporating a range of genotype likelihood based analyses that we may choose to implement. 
+
+Before we can call SNPs we will need to create a list of sample bam file and directories where output will be stored. From '/data/zool-zir/Myzomela' type the following commands:
+
+```
+#Create list of sample bams
+ls sample_bams/*.bam > bam.list
+
+#Create directories for output files
+mkdir GENOs
+mkdir MAFs
+mkdir VCFs
+```
+The SNP calling script
