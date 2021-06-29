@@ -48,6 +48,6 @@ do
 	zcat $SCAFFOLD | grep "#" -v >> Lcass.v1_WholeGenome.imputed.phased.vcf
 done
 
-#Compress the file and remove beagle list
+#Compress the file and remove vcf list
 zcat Lcass.v1_WholeGenome.imputed.phased.vcf
 rm vcf.list
