@@ -181,15 +181,16 @@ Before we can submit the script we will need to create a list of sample bam file
 ls sample_bams/*.bam > bam.list
 ```
 
-Let's look at the script 'GL_Estimation_GT_Imputation.sh' using the command less (used up and down arrows to scroll through script and hit 'q' key to close). As you will see the script is fully annotated and should (hopefully) be understandable.
+Let's look at the script 'GL_Estimation_GT_Imputation.sh' using the command less (used up and down arrows to scroll through script and hit 'q' key to close). As you will see the script is fully annotated and should (hopefully) be understandable. To speed things up processing of the 1000+ scaffolds is conducted across a multiple job array.
 ```
-less SNP_Calling_ANGSD.sh
+less GL_Estimation_GT_Imputation.sh
 ```
 
 We can submit this script with the simple command:
 ```
-sbatch SNP_Calling_ANGSD.sh
+sbatch GL_Estimation_GT_Imputation.sh
 ```
 
+## STEP 8: Merging single scaffold files
 
 
