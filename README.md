@@ -213,13 +213,41 @@ mkdir Myzomela
 cd Myzomela
 ```
 
-Copying whole genome beagle and VCF files from ARC
+Copying whole genome beagle and VCF files from ARC (you will be prompted for your ARC password)
 ```
 scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/Lcass.v1_WholeGenome.* ./
 ```
 
-Copy bam.list previously used by ANGSD
+Copy bam.list previously used by ANGSD (again, you will be prompted for your ARC password)
 ```
 scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/bam.list ./
 ```
+
+Copy scripts from GitHub
+```
+git clone https://github.com/ASendellPrice/Myzomela_scripting
+```
+
+## STEP 10: Launch a detatchable shell using tmux
+Unlike ARC where we submit jobs to a job scheduler, on Nesoi we run jobs interactively in real time. This is great as means we dont have to wait for our analyses to leave a queue before they starts. However, if your laptop disconnects from the server the analysis will stop as ssh requires a constant connection. This can be overcome by launching a detatchable shell once we are logged into the server using the command tmux (terminal multiplexer).
+
+Create a tmux session called "mysession" (you can call it anything you like)
+```
+tmux new -s mysession
+```
+
+
+## STEP 11: Conducting PCA and admixture analyses
+To get an idea of the genetic structuring of the *Myzomela* samples we will conduct two different analyses:
+1. Principal Component Analysis using [PCAngsd](http://www.popgen.dk/software/index.php/PCAngsd)
+2. Admixture using [NgsAdmix](http://www.popgen.dk/software/index.php/NgsAdmix)
+
+The computational parts of these analyses are conducted using the script **Run_PCAngsd_NgsAdmix.sh**. Let's have a look at this file using the less command
+```
+less Myzomela_scripting/Scripts/Run_PCAngsd_NgsAdmix.sh
+```
+
+
+
+
 
