@@ -27,6 +27,10 @@ PCAngsd=/home/zoo/BIN/pcangsd/pcangsd.py
 
 #-- ESTIMATE COVARIANCE MATRIX USING PCANGSD -----------
 
+#make directory for PCA and move into it
+mkdir PCA
+cd PCA
+
 #Calculate covariance matrix
 #Note: By default the maximum number of iterations performed is 100, this has been
 #increased to 10000 using "-iter" flag to ensure there are sufficient itetations
@@ -41,8 +45,14 @@ python $PCAngsd \
 # .cov - a covariance matrix (.cov) which can be used
 #        to perfom PCA in R
 
+#move out of PCA directory
+cd ../
 
 #-- ESTIMATE ADMIXTURE PROPORTIONS USING NGSADMIX -------
+
+#make directory for Admixture analysis and move into it
+mkdir ADMIX
+cd ADMIX
 
 #Using a for loop run NGSadmix using different k values
 for K in 2 3 4 5 6 7 8 9 10
@@ -54,6 +64,9 @@ NGSadmix \
 -o ${OUT}_K${K} -P 10
 
 done
+
+#move out of ADMIX directory
+cd ../
 
 
 #-- EXTRACT SAMPLE IDs FROM BAM.LIST -------------------
