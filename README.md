@@ -2,9 +2,9 @@
 A. Sendell-Price, Jan 2021.
 
 ## STEP 1: Log in to ARC move into *Myzomela* project directory
-Let's log into Arcus-htc (replace OSS with your single sign on):
+Let's log into Arcus-htc (replace SSO with your single sign on):
 ```
-ssh OSS@oscgate.arc.ox.ac.uk
+ssh SSO@oscgate.arc.ox.ac.uk
 ssh arcus-htc
 ```
 
@@ -163,10 +163,10 @@ sbatch Scripts/RawReads2SampleBams.sh
 ```
 
 ## STEP 6: Downloading fastp QC reports
-Open a new terminal and from a directory on your laptop where you want to save the fastp reports type the following command (changing OSS to your username):
+Open a new terminal and from a directory on your laptop where you want to save the fastp reports type the following command (changing SSO to your username):
 
 ```
-scp -r OSS@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
+scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
 ```
 
 ## STEP 7: Estimating genotype likelihoods (GLs) and imputing genotypes (GTs)
@@ -193,4 +193,33 @@ sbatch GL_Estimation_GT_Imputation.sh
 
 ## STEP 8: Merging single scaffold files
 
+To be added ...
+
+## STEP 9: Logging into Nesoi and migrating datasets
+
+Now that the big bioinformatics work has been done we can now move from ARC to Nesoi. Like ARC we will access the server using a secure shell. Type the following command (replace SSO with your single sign-on), after which you will be prompted for your password (different from ARC)
+```
+ssh SSO@zoo-nesoi.zoo.ox.ac.uk
+```
+
+Welcome to Nesoi goddesses of islands!! You will now be in your home directory "/home/zoo/" followed by your SSO. You can check this using the print working directory command (pwd)
+```
+pwd
+```
+
+To keep things tidy we will now create a directory for the Myzomela project and move into it
+```
+mkdir Myzomela
+cd Myzomela
+```
+
+Copying whole genome beagle and VCF files from ARC
+```
+scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/Lcass.v1_WholeGenome.* ./
+```
+
+Copy bam.list previously used by ANGSD
+```
+scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/bam.list ./
+```
 
