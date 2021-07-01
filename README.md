@@ -266,5 +266,30 @@ One of each per K (K2 as an example)
 3. Myzomela_Indv81_SNPs5M_K2.log - log file from PCAngsd that summarises run
 4. Myzomela_Indv81_SNPs5M_K2.qopt - contains an estimate of the individual's ancestry proportion (admixture) from each of the three assumed ancestral populations for all individuals. There is a line for each individual.
 
+**Bonus file:**
+1. sampleIDs.txt - file listing samples within beagle file
 
+These files can be transfered from Nesoi to your laptop via Filezilla
 
+### Using R to conduct PCA from PCAngsd covariance matrix
+```r
+#Read in covariance matrix for chunk
+C <- as.matrix(read.table("Myzomela_Indv81_SNPs5M.cov"))
+  
+#Compute eigenvalues and eigenvectors
+e <- eigen(C)
+  
+#Extract PCs 1 and 2 
+PC1_PC2 <- as.data.frame(e$vectors[,1:2])
+colnames(PC1_PC2) <- c("PC1","PC2")
+
+#Load sample names
+sample_ids <- read.delim("samplesIDs.txt", header = FALSE)
+colnames(sample_ids) <- "sample.id"
+
+#Append sample ID column to PC dataframe
+PC1_PC2 <- cbind(sample_ids, PC1_PC2)
+
+#You can also add other info to each sample e.g. population, species/subspecies etc.
+#To do so create simple text files containing info for each sample.
+```
