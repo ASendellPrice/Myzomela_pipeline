@@ -250,8 +250,21 @@ The computational parts of these analyses are conducted using the script **Run_P
 ```
 less Myzomela_pipeline/Scripts/Run_PCAngsd_NgsAdmix.sh
 ```
+We can run the script like so:
+```
+source Myzomela_pipeline/Scripts/Run_PCAngsd_NgsAdmix.sh
+```
+After a number of hours the script will produce the following files:
+**PCAngsd:**
+1. Myzomela_Indv81_SNPs5M.cov - covariance matrix which can be used to conduct PCA in R
+2. Myzomela_Indv81_SNPs5M.log - log file from PCAngsd that summarises run
 
-
+**NgsAdmix:**
+One of each per K (K2 as an example)
+1. Myzomela_Indv81_SNPs5M_K2.filter 
+2. Myzomela_Indv81_SNPs5M_K2.fopt.gz - an estimate of the allele frequency in each of the 3 assumed ancestral populations. There is a line for each locus.
+3. Myzomela_Indv81_SNPs5M_K2.log - log file from PCAngsd that summarises run
+4. Myzomela_Indv81_SNPs5M_K2.qopt - contains an estimate of the individual's ancestry proportion (admixture) from each of the three assumed ancestral populations for all individuals. There is a line for each individual.
 
 
 
