@@ -225,7 +225,7 @@ scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/bam
 
 Copy scripts from GitHub
 ```
-git clone https://github.com/ASendellPrice/Myzomela_scripting
+git clone https://github.com/ASendellPrice/Myzomela_pipeline
 ```
 
 ## STEP 10: Launch a detatchable shell using tmux
@@ -248,7 +248,7 @@ To get an idea of the genetic structuring of the *Myzomela* samples we will cond
 
 The computational parts of these analyses are conducted using the script **Run_PCAngsd_NgsAdmix.sh**. Let's have a look at this file using the less command
 ```
-less Myzomela_scripting/Scripts/Run_PCAngsd_NgsAdmix.sh
+less Myzomela_pipeline/Scripts/Run_PCAngsd_NgsAdmix.sh
 ```
 
 
