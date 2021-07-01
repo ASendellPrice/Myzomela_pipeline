@@ -55,3 +55,13 @@ NGSadmix \
 
 done
 
+
+#-- EXTRACT SAMPLE IDs FROM BAM.LIST -------------------
+
+#Create a list of sample names using bam.list using awk and sed
+cat bam.list | awk -F/ '{print $NF}' | sed 's/.sorted.bam//' > samplesIDs.txt
+#1             #2                      #3                    #4
+#1 - print bam.list to screen (sample_bams/ABY15.sorted.bam)
+#2 - using awk field seperator flag (-F) seperate by "/" and print final chunk (ABY15.sorted.bam)
+#3 - using sed substitute flag substitute ".sorted.bam" with "" (ABY15)
+#4 - write to file "sampleIDs.txt"
