@@ -283,6 +283,8 @@ e <- eigen(C)
 PC1_PC2 <- as.data.frame(e$vectors[,1:2])
 colnames(PC1_PC2) <- c("PC1","PC2")
 
+write.table(PC1_PC2, "PCs.txt", row.names = FALSE, quote = FALSE, sep = "\t")
+
 #Load sample names
 sample_ids <- read.delim("samplesIDs.txt", header = FALSE)
 colnames(sample_ids) <- "sample.id"
