@@ -172,23 +172,16 @@ scp -r OSS@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
 ## STEP 7: Estimating genotype likelihoods (GLs) and imputing genotypes (GTs)
 A challenge of working with low coverage sequencing data is that we cannot be 100% certain of the geneotypes (GTs) of our samples. A solution to this challenge is to use a probabilistic measurement of the genotypes in the form of genotype likelihoods (GLs) and/or genotype probabilities (PLs). There are an increasing number of tools that take genotype likelihoods/probabilities as input for downstream analyses, however where traditional genotype inputs are reruired GTs can be imputed from GLs/PLs based on local linkage patterns. 
 
-In this step we will estimate genotype likelihoods using the software [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) and impute sample genotypes using [BEAGLE4](https://faculty.washington.edu/browning/beagle/b4_0.html). All of this is performed using the script ""
+In this step we will estimate genotype likelihoods using the software [ANGSD](http://www.popgen.dk/angsd/index.php/ANGSD) and impute sample genotypes using [BEAGLE4](https://faculty.washington.edu/browning/beagle/b4_0.html). All of this is performed using the script "GL_Estimation_GT_Imputation.sh".
 
-
-
-Before we can call SNPs we will need to create a list of sample bam file and directories where output will be stored. From '/data/zool-zir/Myzomela' type the following commands:
+Before we can submit the script we will need to create a list of sample bam files. From '/data/zool-zir/Myzomela' type the following commands:
 
 ```
 #Create list of sample bams
 ls sample_bams/*.bam > bam.list
-
-#Create directories for output files
-mkdir GENOs
-mkdir MAFs
-mkdir VCFs
 ```
 
-Let's look at the SNP calling script 'SNP_Calling_ANGSD.sh' using the command less (used up and down arrows to scroll through script and hit 'q' key to close).
+Let's look at the script 'GL_Estimation_GT_Imputation.sh' using the command less (used up and down arrows to scroll through script and hit 'q' key to close). As you will see the script is fully annotated and should (hopefully) be understandable.
 ```
 less SNP_Calling_ANGSD.sh
 ```
