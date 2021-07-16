@@ -309,10 +309,51 @@ and outputs two fasta files:
 1. A super-scaffold assembly where query scaffolds have been joined into larger and fewer pieces
 2. A pseudo-chromosome assembly where super scaffolds have been combined into "chromosomes" and gaps filled with Ns.
 
+The outputted pseudo-chromosome assembly can then be used as the reference when mapping filtered sequencing reads (as in Step 4)
+
 ### Let's try running Chromosembler on Nesoi
 
-STEP 1: Log into Nesoi move to the data directory '/data/Users/'
-STEP 2: 
+STEP 1: Log into Nesoi and move to the data directory '/data/Users/'
+
+STEP 2: Create a directory for your work (something like 'Sonya_Myzomela') and move into it
+
+STEP 3: Create a directory for Satsuma work (something like 'Satsuma_Chromosembler_Run') and move into it
+
+STEP 4: Create a new tmux session called 'Satsuma'
+```
+tmux new -s Satsuma
+```
+
+STEP 5: Download the query and target genomes and then unzip them
+```
+wget --timestamping ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/008/360/975/GCA_008360975.1_HeHo_1.0/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+wget --timestamping https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/003/957/565/GCA_003957565.2_bTaeGut1_v1.p/GCA_003957565.2_bTaeGut1_v1.p_genomic.fna.gz
+
+gunzip GCA_003957565.2_bTaeGut1_v1.p_genomic.fna.gz
+gunzip GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+```
+
+STEP 6: Set path to Chromosemble which I have installed on Nesoi
+CHROMOSEMBLE=/data/Users/BIN/satsuma2/bin/Chromosemble
+
+STEP 7: Run Chromosemble
+```
+$CHROMOSEMBLE \
+-t GCA_003957565.2_bTaeGut1_v1.p_genomic.fna \
+-q GCA_008360975.1_HeHo_1.0_genomic.fna \
+-o Lcass_2_Tgutt
+```
+-t = target sequence (zebra finch assembly)
+-q = query sequence (Honeyeater assembly)
+-o = name for the output directory
+
+
+
+
+
+
+
+
 
 
 
