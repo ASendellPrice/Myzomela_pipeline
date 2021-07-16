@@ -295,3 +295,26 @@ PC1_PC2 <- cbind(sample_ids, PC1_PC2)
 #You can also add other info to each sample e.g. population, species/subspecies etc.
 #To do so create simple text files containing info for each sample.
 ```
+
+
+## BONUS STEP: Creating pseudo-chromosome assembly based on synteny with T. guttata assembly.
+
+In our previous work we had used the program [**Satsuma**](http://bioinformatics.oxfordjournals.org/content/26/9/1145.long) to infer the mean position of Z. lateralis scaffolds (and their orientation) relative to chromosomes of the T. guttata assembly. This was rather long-winded and involved complicated R-scripts to translate Z. lateralis positions within a VCF/Beagle file into T. guttata chromosomal positions. For large VCF/Beagle files this creates a complete headache as is difficult to allocate the memory required to do this . . . 
+
+However, the developers of Satsuma have recently introduced a new tool: the Chromosembler! Which makes this process a whole lot simpler. Chromosembler takes two fasta files: 
+1. query sequence - the helmeted honeyeater reference (scaffold-level assembly)
+2. target sequence - the zebra finch reference (chromosome level-assembly)
+
+and outputs two fasta files:
+1. A super-scaffold assembly where query scaffolds have been joined into larger and fewer pieces
+2. A pseudo-chromosome assembly where super scaffolds have been combined into "chromosomes" and gaps filled with Ns.
+
+### Let's try running Chromosembler on Nesoi
+
+STEP 1: Log into Nesoi move to the data directory '/data/Users/'
+STEP 2: 
+
+
+
+
+
