@@ -343,19 +343,9 @@ $CHROMOSEMBLE \
 -q GCA_008360975.1_HeHo_1.0_genomic.fna \
 -o Lcass_2_Tgutt
 ```
--t = target sequence (zebra finch assembly)
--q = query sequence (Honeyeater assembly)
--o = name for the output directory
+* -t = target sequence (zebra finch assembly)'
+* -q = query sequence (Honeyeater assembly)
+* -o = name for the output directory
 
-
-
-
-
-
-
-
-
-
-
-
-
+STEP 8: Detatch from session
+This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
