@@ -334,7 +334,9 @@ gunzip GCA_008360975.1_HeHo_1.0_genomic.fna.gz
 ```
 
 STEP 6: Set path to Chromosemble which I have installed on Nesoi
+```
 CHROMOSEMBLE=/data/Users/BIN/satsuma2/bin/Chromosemble
+```
 
 STEP 7: Run Chromosemble
 ```
