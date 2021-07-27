@@ -408,4 +408,11 @@ STEP 8: Estimate FST in a sliding window
 realSFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.folded.fst.size50kb_step10kb.slidingwindow
 ```
 
-Now you will have a file containing 
+This will output a tab-delimited file where:
+Column 1 = IGNORE (not explained by ANGSD)
+Column 2 = chromosome name
+Column 3 = centre of window
+Column 4 = unweighted Fst
+Column 5 = weighted Fst
+
+
