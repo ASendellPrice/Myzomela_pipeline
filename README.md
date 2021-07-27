@@ -399,6 +399,7 @@ realSFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.
 ```
 
 STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
+Weighted FST is sum(a)/sum(a+b), while unweighted is average(a/(a+b)), as in [Raynolds 1983].(https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1202185/)
 ```
 realSFS fst stats pop1.pop2.folded.fst.idx
 ```
