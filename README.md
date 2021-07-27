@@ -370,7 +370,7 @@ STEP 3: Create a list of bam files for each sample within a given population. I 
 
 1. You can get a list of all the sample bams available like so:
 ```
-/data/Users/Sonya_Myzomela/sample_bams/*.bam
+ls /data/Users/Sonya_Myzomela/sample_bams/*.bam
 ```
 
 2. Create your list file for population 1 using nano
@@ -409,10 +409,10 @@ realSFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.f
 ```
 
 This will output a tab-delimited file where:
-Column 1 = IGNORE (not explained by ANGSD)
-Column 2 = chromosome name
-Column 3 = centre of window
-Column 4 = unweighted Fst
-Column 5 = weighted Fst
+* Column 1 = IGNORE (not explained by ANGSD)
+* Column 2 = chromosome name
+* Column 3 = centre of window
+* Column 4 = unweighted Fst
+* Column 5 = weighted Fst
 
 
