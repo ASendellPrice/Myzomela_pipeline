@@ -352,3 +352,60 @@ $CHROMOSEMBLE \
 
 STEP 8: Detatch from session
 This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
+
+
+
+## ESTIMATING FST FROM GENOTYPE LIKELIHOODS
+The following outlines how you can estimate fst (windowed and global) between a pair of populations. Note: You will need to decide which samples will form the populations you wish to contrast, these could be geographical comparisons e.g. Tanna vs. Mainland, or could be based on sex e.g. Vanuatu males vs Vanuatu females. This step by step tutorial is based on the FST pages of ANGSD, see [link](http://www.popgen.dk/angsd/index.php/Fst).
+
+STEP 1: Log into nesoi and create a new detachable session (we have done this before so I will leave it to you to figure out)
+
+STEP 2: Move into the following directory '/data/Users/Sonya_Myzomela/' and create a new directory for the fst analysis and move into it (call it something informative). 
+```
+mkdir Fst_pop1_vs_pop2
+cd Fst_pop1_vs_pop2
+```
+
+STEP 3: Create a list of bam files for each sample within a given population. I have transfered bam files from arc to nesoi, they are stored here: '/data/Users/Sonya_Myzomela/sample_bams'. 
+
+1. You can get a list of all the sample bams available like so:
+```
+/data/Users/Sonya_Myzomela/sample_bams/*.bam
+```
+
+2. Create your list file for population 1 using nano
+```
+nano pop1.bam.list
+```
+
+3. Now do the same for population 2
+
+STEP 4: Calculate the site allele frequency likelihood based on individual genotype likelihoods for pop1 and pop2 using angsd
+Note: As we dont have an ancestral state reference we will instead supply the reference assembly, which will result in the output being "folded" where the minor allele is used in lieu of the derived allele.
+
+```
+angsd -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/zool-zir/Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
+angsd -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/zool-zir/Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
+```
+
+STEP 5: Calculate the 2D site frequency spectrum
+```
+realSFS pop1.Folded.saf.idx pop2.Folded.saf.idx > pop1.pop2.folded.ml
+```
+
+STEP 6: Prepare the fst for easy window analysis etc
+```
+realSFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.ml -fstout pop1.pop2.folded
+```
+
+STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
+```
+realSFS fst stats pop1.pop2.folded.fst.idx
+```
+
+STEP 8: Estimate FST in a sliding window
+```
+realSFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.folded.fst.size50kb_step10kb.slidingwindow
+```
+
+Now you will have a file containing 
