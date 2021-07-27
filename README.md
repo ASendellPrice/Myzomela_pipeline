@@ -398,7 +398,7 @@ STEP 6: Prepare the fst for easy window analysis etc
 realSFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.ml -fstout pop1.pop2.folded
 ```
 
-STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
+STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST - weighted Fst has more weight on sites have a bigger between population variance)
 ```
 realSFS fst stats pop1.pop2.folded.fst.idx
 ```
