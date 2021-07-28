@@ -384,8 +384,8 @@ STEP 4: Calculate the site allele frequency likelihood based on individual genot
 Note: As we dont have an ancestral state reference we will instead supply the reference assembly, which will result in the output being "folded" where the minor allele is used in lieu of the derived allele.
 
 ```
-angsd -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/zool-zir/Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
-angsd -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/zool-zir/Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
+angsd -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
+angsd -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -GL 1
 ```
 
 STEP 5: Calculate the 2D site frequency spectrum
