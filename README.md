@@ -384,29 +384,31 @@ STEP 4: Calculate the site allele frequency likelihood based on individual genot
 Note: As we dont have an ancestral state reference we will instead supply the reference assembly, which will result in the output being "folded" where the minor allele is used in lieu of the derived allele.
 
 ```
-angsd -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
-angsd -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
+ANGSD=/data/Users/BIN/angsd/angsd
+$ANGSD -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
+$ANGSD -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
 ```
 
 STEP 5: Calculate the 2D site frequency spectrum
 ```
-realSFS pop1.Folded.saf.idx pop2.Folded.saf.idx > pop1.pop2.folded.ml
+REAL_SFS=/data/Users/BIN/angsd/misc/realSFS
+$REAL_SFS pop1.Folded.saf.idx pop2.Folded.saf.idx > pop1.pop2.folded.ml
 ```
 
 STEP 6: Prepare the fst for easy window analysis etc
 ```
-realSFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.ml -fstout pop1.pop2.folded
+$REAL_SFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.ml -fstout pop1.pop2.folded
 ```
 
 STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
 Weighted FST is sum(a)/sum(a+b), while unweighted is average(a/(a+b)), as in [Raynolds 1983].(https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1202185/)
 ```
-realSFS fst stats pop1.pop2.folded.fst.idx
+$REAL_SFS fst stats pop1.pop2.folded.fst.idx
 ```
 
 STEP 8: Estimate FST in a sliding window
 ```
-realSFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.folded.fst.size50kb_step10kb.slidingwindow
+$REAL_SFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.folded.fst.size50kb_step10kb.slidingwindow
 ```
 
 This will output a tab-delimited file where:
