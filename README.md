@@ -390,14 +390,24 @@ $ANGSD -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/Users/Sonya_Myzom
 ```
 
 STEP 5: Calculate the 2D site frequency spectrum
+We will run this as a for loop, doing one chromosome at a time so as to not exhaust available memory
 ```
 REAL_SFS=/data/Users/BIN/angsd/misc/realSFS
-$REAL_SFS pop1.Folded.saf.idx pop2.Folded.saf.idx > pop1.pop2.folded.ml
+
+for CHROM in $(cat /data/Users/Sonya_Myzomela/Ref_Genome/PseudoChroms.txt)
+do
+SCAFF_NAME=$(echo $CHROM | cut -d "_" -f 1) 
+$REAL_SFS pop1.Folded.saf.idx pop2.Folded.saf.idx -maxIter 1000000 -r $CHROM > pop1.pop2.${SCAFF_NAME}.folded.ml
+done
 ```
 
 STEP 6: Prepare the fst for easy window analysis etc
 ```
-$REAL_SFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.folded.ml -fstout pop1.pop2.folded
+for CHROM in $(cat /data/Users/Sonya_Myzomela/Ref_Genome/PseudoChroms.txt)
+do
+SCAFF_NAME=$(echo $CHROM | cut -d "_" -f 1) 
+$REAL_SFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.${SCAFF_NAME}.folded.ml -fstout pop1.pop2.${SCAFF_NAME}.folded -maxIter 1000000 -r $CHROM
+done
 ```
 
 STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
