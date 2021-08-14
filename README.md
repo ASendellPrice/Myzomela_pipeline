@@ -380,52 +380,14 @@ nano pop1.bam.list
 
 3. Now do the same for population 2
 
-STEP 4: Calculate the site allele frequency likelihood based on individual genotype likelihoods for pop1 and pop2 using angsd
-Note: As we dont have an ancestral state reference we will instead supply the reference assembly, which will result in the output being "folded" where the minor allele is used in lieu of the derived allele.
+STEP 4: Run script "Calc_GlobalFST_WindowedFST.sh" which will do the following for each chromosome:
+1. Calculate the allele frequency likelihoods for pop1 and pop2 using angsd
+2. Calculate the 2D "folded" site frequency spectrum
+3. Calculate FST on a per site basis
+4. Calculate global (whole chromosome) estimate of FST
+5. Calculate FST in windows (currently set to non-overlapping 50kb windows)
+View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/Scripts/Calc_GlobalFST_WindowedFST.sh).
 
 ```
-ANGSD=/data/Users/BIN/angsd/angsd
-$ANGSD -bam pop1.bam.list -doSaf 1 -out pop1.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
-$ANGSD -bam pop2.bam.list -doSaf 1 -out pop2.Folded -anc /data/Users/Sonya_Myzomela/Ref_Genome/Lcass_2_Tgut_pseudochromosomes.fasta.gz -gl 1
+source ../Scripts/Calc_GlobalFST_WindowedFST.sh
 ```
-
-STEP 5: Calculate the 2D site frequency spectrum
-We will run this as a for loop, doing one chromosome at a time so as to not exhaust available memory
-```
-REAL_SFS=/data/Users/BIN/angsd/misc/realSFS
-
-for CHROM in $(cat /data/Users/Sonya_Myzomela/Ref_Genome/PseudoChroms.txt)
-do
-SCAFF_NAME=$(echo $CHROM | cut -d "_" -f 1) 
-$REAL_SFS pop1.Folded.saf.idx pop2.Folded.saf.idx -maxIter 1000000 -r $CHROM > pop1.pop2.${SCAFF_NAME}.folded.ml
-done
-```
-
-STEP 6: Prepare the fst for easy window analysis etc
-```
-for CHROM in $(cat /data/Users/Sonya_Myzomela/Ref_Genome/PseudoChroms.txt)
-do
-SCAFF_NAME=$(echo $CHROM | cut -d "_" -f 1) 
-$REAL_SFS fst index pop1.Folded.saf.idx pop2.Folded.saf.idx -sfs pop1.pop2.${SCAFF_NAME}.folded.ml -fstout pop1.pop2.${SCAFF_NAME}.folded -maxIter 1000000 -r $CHROM
-done
-```
-
-STEP 7: Get the global FST estimate (this will output weigthed and unweighted FST)
-Weighted FST is sum(a)/sum(a+b), while unweighted is average(a/(a+b)), as in [Raynolds 1983].(https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1202185/)
-```
-$REAL_SFS fst stats pop1.pop2.folded.fst.idx
-```
-
-STEP 8: Estimate FST in a sliding window
-```
-$REAL_SFS fst stats2 pop1.pop2.folded.fst.idx -win 50000 -step 10000 > pop1.pop2.folded.fst.size50kb_step10kb.slidingwindow
-```
-
-This will output a tab-delimited file where:
-* Column 1 = IGNORE (not explained by ANGSD)
-* Column 2 = chromosome name
-* Column 3 = centre of window
-* Column 4 = unweighted Fst
-* Column 5 = weighted Fst
-
-
