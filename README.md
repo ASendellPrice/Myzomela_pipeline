@@ -56,6 +56,7 @@ $CHROMOSEMBLE \
 * -o = name for the output directory
 
 STEP 8: Detatch from session
+
 This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
 
 
