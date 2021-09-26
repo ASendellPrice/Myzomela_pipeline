@@ -1,6 +1,72 @@
 # Step by step bioinformatics guide for Sonya's *Myzomela* project: From rawdata to pop gen analyses
 A. Sendell-Price, Jan 2021.
 
+## STEP 1: Creating pseudo-chromosome assembly based on synteny with T. guttata assembly.
+
+In our previous work we had used the program [**Satsuma**](http://bioinformatics.oxfordjournals.org/content/26/9/1145.long) to infer the mean position of Z. lateralis scaffolds (and their orientation) relative to chromosomes of the T. guttata assembly. This was rather long-winded and involved complicated R-scripts to translate Z. lateralis positions within a VCF/Beagle file into T. guttata chromosomal positions. For large VCF/Beagle files this creates a complete headache as is difficult to allocate the memory required to do this . . . 
+
+However, the developers of Satsuma have recently introduced a new tool: the Chromosembler! Which makes this process a whole lot simpler. Chromosembler takes two fasta files: 
+1. query sequence - the helmeted honeyeater reference (scaffold-level assembly)
+2. target sequence - the zebra finch reference (chromosome level-assembly)
+
+and outputs two fasta files:
+1. A super-scaffold assembly where query scaffolds have been joined into larger and fewer pieces
+2. A pseudo-chromosome assembly where super scaffolds have been combined into "chromosomes" and gaps filled with Ns.
+
+The outputted pseudo-chromosome assembly can then be used as the reference when mapping filtered sequencing reads (as in Step 4)
+
+### Let's try running Chromosembler on Nesoi
+
+STEP 1: Log into Nesoi and move to the data directory '/data/Users/'
+
+STEP 2: Create a directory for your work (something like 'Sonya_Myzomela') and move into it
+
+STEP 3: Create a directory for Satsuma work (something like 'Satsuma_Chromosembler_Run') and move into it
+
+STEP 4: Create a new tmux session called 'Satsuma'
+```
+tmux new -s Satsuma
+```
+
+STEP 5: Download the query and target genomes and then unzip them
+```
+wget --timestamping ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/008/360/975/GCA_008360975.1_HeHo_1.0/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+wget --timestamping 
+https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/957/565/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna.gz
+
+gunzip GCF_003957565.2_bTaeGut1.4.pri_genomic.fna.gz
+gunzip GCA_008360975.1_HeHo_1.0_genomic.fna.gz
+```
+
+STEP 6: Set path to Chromosemble which I have installed on Nesoi
+```
+CHROMOSEMBLE=/data/Users/BIN/satsuma2/bin/Chromosemble
+export SATSUMA2_PATH=/data/Users/BIN/satsuma2/bin/
+```
+
+STEP 7: Run Chromosemble
+```
+$CHROMOSEMBLE \
+-t GCF_003957565.2_bTaeGut1.4.pri_genomic.fna \
+-q GCA_008360975.1_HeHo_1.0_genomic.fna \
+-o Lcass_2_Tgutt_ZW
+```
+* -t = target sequence (zebra finch assembly)
+* -q = query sequence (Honeyeater assembly)
+* -o = name for the output directory
+
+STEP 8: Detatch from session
+This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
+
+
+
+
+#STOP
+
+
+
+
+
 ## STEP 1: Log in to ARC move into *Myzomela* project directory
 Let's log into Arcus-htc (replace SSO with your single sign on):
 ```
