@@ -61,9 +61,16 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 # <---- this is where we stopped
 
 STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
-The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence
 
-Extract chromosome names from pseudochromosome assembly fasta file
+The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
+
+```
+#Extract chromosome names from pseudochromosome assembly fasta file
+cat *.fna | grep ">" | awk 'g/>//'s > long.chrom.names
+#   1          2           3        4 
+
+```
+
 
 
 
