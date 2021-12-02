@@ -31,8 +31,7 @@ tmux new -s Satsuma
 STEP 5: Download the query and target genomes and then unzip them
 ```
 wget --timestamping ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/008/360/975/GCA_008360975.1_HeHo_1.0/GCA_008360975.1_HeHo_1.0_genomic.fna.gz
-wget --timestamping 
-https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/957/565/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna.gz
+wget --timestamping ftp.ncbi.nlm.nih.gov/genomes/all/GCF/003/957/565/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna.gz
 
 gunzip GCF_003957565.2_bTaeGut1.4.pri_genomic.fna.gz
 gunzip GCA_008360975.1_HeHo_1.0_genomic.fna.gz
