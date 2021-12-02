@@ -70,7 +70,8 @@ cat *.fna | grep ">" | awk 'g/>//'s > long.chrom.names
 #   1          2           3        4 5 
 ```
 1. read file with cat command and pipe output directly to the grep command
-2. Using grep command search for lines containing ">" - as each chromosome header in the fasta file is initiated with ">" by searching for this symbol we can pull out all the lines containing chromosome headers, e.g (">PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence") 
+2. Using grep command search for lines containing ">" - as each chromosome header in the fasta file is initiated with ">" by searching for this symbol we can pull out all the lines containing chromosome headers. For chrom1 this will give us this: 
+    ">PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence".
 
 4. Pipe these to the awk command
 5. 
