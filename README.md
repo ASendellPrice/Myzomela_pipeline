@@ -64,6 +64,10 @@ STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
 
 The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
 
+![alt text](https://github.com/ASendellPrice/Myzomela_pipeline/head_psudoassembly.png)
+
+
+
 #Extract chromosome names from pseudochromosome assembly fasta file and save these to a text file called "long.chrom.names"
 ```
 cat *.fna | grep ">" | awk 'g/>//'s > long.chrom.names
