@@ -64,13 +64,19 @@ STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
 
 The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
 
+#Extract chromosome names from pseudochromosome assembly fasta file and save these to a text file called "long.chrom.names"
 ```
-#Extract chromosome names from pseudochromosome assembly fasta file
 cat *.fna | grep ">" | awk 'g/>//'s > long.chrom.names
-#   1          2           3        4 
-
+#   1          2           3        4 5 
 ```
+1. read file with cat command and pipe output directly to the grep command
+2. Using grep command search for lines containing ">" - as each chromosome header in the fasta file is initiated with ">" by searching for this symbol we can pull out all the lines containing chromosome headers, e.g (">PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence") 
 
+4. Pipe these to the awk command
+5. 
+
+3. search for lines containing ">" using the grep command - each chromosome in the fasta file starts with a header line e.g. (>PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence) so we can use ">" to seach for these.
+4. using awk replace ">" with "" (nothing)  
 
 
 
