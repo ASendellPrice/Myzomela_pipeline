@@ -58,10 +58,24 @@ STEP 8: Detatch from session
 
 This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
 
+# <---- this is where we stopped
+
+STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
+The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence
+
+Extract chromosome names from pseudochromosome assembly fasta file
 
 
 
-# STOP
+
+
+
+## STEP 2: Transfer psuedochromosome assembly to ARC
+Due to memory demands we will need to conduct the read processing (filtering and mapping) using the ARC HTC cluster
+**Note: You will need to replace SSO with your username, you will also be prompted for your ARC password**
+```
+rsync -S -av Lcass_2_Tgutt_ZW SSO@htc-login.arc.ox.ac.uk:/data/zool-zir/Myzomela/
+```
 
 
 
@@ -70,8 +84,7 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 ## STEP 1: Log in to ARC move into *Myzomela* project directory
 Let's log into Arcus-htc (replace SSO with your single sign on):
 ```
-ssh SSO@oscgate.arc.ox.ac.uk
-ssh arcus-htc
+ssh SSO@htc-login.arc.ox.ac.uk
 ```
 
 Move into Myzomela directory in "/data/zool-zir/":
