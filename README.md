@@ -62,36 +62,28 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 
 STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
 
-Chromosomble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome name followed by the sequence. The below screenshot shows the first few lines of the Z.lateralis assembly as an example.
-![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/screenshot_head_psudoassembly.jpeg)
-As you can see pseudochromosome names are really long 
+Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the Z.lateralis pseudoassembly as an example.
 
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/head_assembly.jpeg)
 
-The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names, for example in the screenshot below which shows the first line of the pseudochromosome assembly produced for Z.lateralis 
+As you can see the pseudochromosome names are really long. Such long chromosome names can conflict with programmes used in downstream analyses, so we will shorten these so that they are formatted like so: "chr1". 
 
-"PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
-
-![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/screenshot_head_psudoassembly.jpeg)
-
-
-
-#Extract chromosome names from pseudochromosome assembly fasta file and save these to a text file called "long.chrom.names"
+First, using the cat, grep and sed commands extract the chromosome names from the fasta file and save these to a text file we will call "long.chrom.names"
 ```
-cat *.fna | grep ">" | awk 'g/>//'s > long.chrom.names
-#   1          2           3        4 5 
+cat *.fasta | grep "chromosome" | sed 's/>//g' > long.chrom.names
 ```
-1. read file with cat command and pipe output directly to the grep command
-2. Using grep command search for lines containing ">" - as each chromosome header in the fasta file is initiated with ">" by searching for this symbol we can pull out all the lines containing chromosome headers. For chrom1 this will give us this: 
-    ">PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence".
 
-4. Pipe these to the awk command
-5. 
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/screenshot_chromname_extraction.jpeg)
 
-3. search for lines containing ">" using the grep command - each chromosome in the fasta file starts with a header line e.g. (>PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence) so we can use ">" to seach for these.
-4. using awk replace ">" with "" (nothing)  
+Second, for each long chromosome name in our list "long.chrom.names" replace the long chromosome name with a shortened version
 
-
-
+```
+for CHROM in $(cat long.chrom.names)
+do
+    CHROM_SHORT=$(echo $CHROM | cut -d "," -f 1 | cut -d "_" -f 7)
+    sed -i "s/$CHROM/chr$CHROM_SHORT/g" *.fasta1
+done
+```
 
 
 
