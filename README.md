@@ -62,9 +62,16 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 
 STEP 9: Shorten chromsome names in pseudochromosome assembly fasta file
 
-The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names e.g. "PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
+Chromosomble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome name followed by the sequence. The below screenshot shows the first few lines of the Z.lateralis assembly as an example.
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/screenshot_head_psudoassembly.jpeg)
+As you can see pseudochromosome names are really long 
 
-![alt text](https://github.com/ASendellPrice/Myzomela_pipeline/head_psudoassembly.png)
+
+The pseudochromosome assembly outputted by Chromosemble will have really long chromosome names, for example in the screenshot below which shows the first line of the pseudochromosome assembly produced for Z.lateralis 
+
+"PseudoCM012081.1_Taeniopygia_guttata_isolate_Black17_chromosome_1,_whole_genome_shotgun_sequence", we will shorten these so that they are formatted like so: "chr1"
+
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/screenshot_head_psudoassembly.jpeg)
 
 
 
