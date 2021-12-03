@@ -62,7 +62,7 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 
 ## Editing the chromosome names in the pseudochromosome assembly
 
-Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the Z.lateralis pseudoassembly as an example.
+Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the pseudoassembly.
 
 | What does the fasta format look like? |
 |:--:|
@@ -92,7 +92,7 @@ STEP 4: For each long chromosome name in our list "long.chrom.names" replace the
 for CHROM in $(cat long.chrom.names)
 do
     #Extract chromosome name / number from long name
-    CHROM_SHORT=$(echo $CHROM | cut -d "," -f 1 | cut -d "_" -f 7)
+    CHROM_SHORT=$(echo $CHROM | cut -d "," -f 1 | cut -d "_" -f 8)
     #Use sed to replace long chrom name with short chrom name 
     #This may take several minutes
     sed -i "s/$CHROM/chr$CHROM_SHORT/g" Lcass_2_Tgutt_ZW.fasta
