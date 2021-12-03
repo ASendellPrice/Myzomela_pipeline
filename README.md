@@ -64,9 +64,7 @@ This will take a few hours to run, so detatch from tmux session using cntrl+b fo
 
 Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the pseudoassembly.
 
-| What does the fasta format look like? |
-|:--:|
-![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/head_assembly.jpeg)
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/head_assembly.png)
 
 As you can see the pseudochromosome names are really long. Such long chromosome names can conflict with programmes used in downstream analyses, so we will shorten these so that they are formatted like so: "chr1".
 
@@ -82,9 +80,7 @@ STEP 3: Using the cat, grep and sed commands extract the chromosome names from t
 ```
 cat Lcass_2_Tgutt_ZW.fasta | grep "chromosome" | sed 's/>//g' > long.chrom.names
 ```
-| How are we extracting the chromosome names from the fasta header lines? |
-|:--:|
-![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/chromname_extraction.jpeg)
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/chromname_extraction.png)
 
 STEP 4: For each long chromosome name in our list "long.chrom.names" replace the long chromosome name in the fasta file with a shortened version. This will be implemented in a for loop.
 
@@ -99,9 +95,7 @@ do
 done
 ```
 
-| How do we go from long chromosome names to short chromosome names? |
-|:--:|
-![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/create_short_chrom_name.jpeg)
+![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/create_short_chrom_name.png)
 
 Let's check this has worked by extracting the header lines from the fasta file again. Short chromosome names should be printed to your screen.
 ```
