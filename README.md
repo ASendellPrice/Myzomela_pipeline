@@ -1,7 +1,7 @@
 # Step by step bioinformatics guide for Sonya's *Myzomela* project: From rawdata to pop gen analyses
 A. Sendell-Price, Jan 2021.
 
-## STEP 1: Creating pseudo-chromosome assembly based on synteny with T. guttata assembly.
+## Creating pseudo-chromosome assembly based on synteny with T. guttata assembly.
 
 In our previous work we had used the program [**Satsuma**](http://bioinformatics.oxfordjournals.org/content/26/9/1145.long) to infer the mean position of Z. lateralis scaffolds (and their orientation) relative to chromosomes of the T. guttata assembly. This was rather long-winded and involved complicated R-scripts to translate Z. lateralis positions within a VCF/Beagle file into T. guttata chromosomal positions. For large VCF/Beagle files this creates a complete headache as is difficult to allocate the memory required to do this . . . 
 
@@ -58,9 +58,9 @@ STEP 8: Detatch from session
 
 This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
 
-# <---- this is where we stopped
+# <---- CONTINUE FROM HERE 
 
-### Editing the chromosome names in the pseudochromosome assembly
+## Editing the chromosome names in the pseudochromosome assembly
 
 Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the Z.lateralis pseudoassembly as an example.
 
@@ -70,15 +70,23 @@ Chromosemble will output a psuedoassembly in fasta format. This file consists of
 
 As you can see the pseudochromosome names are really long. Such long chromosome names can conflict with programmes used in downstream analyses, so we will shorten these so that they are formatted like so: "chr1".
 
-STEP 1: Using the cat, grep and sed commands extract the chromosome names from the fasta file and save these to a text file we will call "long.chrom.names"
+STEP 1: Reconnect to Nesoi, and reconnect to the tmux session
+
+STEP 2: Move into the directory containing output from Chromosemble and rename pseudochromosomes.fasta to something sensible
 ```
-cat *.fasta | grep "chromosome" | sed 's/>//g' > long.chrom.names
+cd Lcass_2_Tgutt_ZW
+mv pseudochromosomes.fasta Lcass_2_Tgutt_ZW.fasta
+```
+
+STEP 3: Using the cat, grep and sed commands extract the chromosome names from the fasta file and save these to a text file we will call "long.chrom.names"
+```
+cat Lcass_2_Tgutt_ZW.fasta | grep "chromosome" | sed 's/>//g' > long.chrom.names
 ```
 | How are we extracting the chromosome names from the fasta header lines? |
 |:--:|
 ![](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/chromname_extraction.jpeg)
 
-STEP 2: For each long chromosome name in our list "long.chrom.names" replace the long chromosome name in the fasta file with a shortened version. This will be implemented in a for loop.
+STEP 4: For each long chromosome name in our list "long.chrom.names" replace the long chromosome name in the fasta file with a shortened version. This will be implemented in a for loop.
 
 ```
 for CHROM in $(cat long.chrom.names)
@@ -87,7 +95,7 @@ do
     CHROM_SHORT=$(echo $CHROM | cut -d "," -f 1 | cut -d "_" -f 7)
     #Use sed to replace long chrom name with short chrom name 
     #This may take several minutes
-    sed -i "s/$CHROM/chr$CHROM_SHORT/g" *.fasta
+    sed -i "s/$CHROM/chr$CHROM_SHORT/g" Lcass_2_Tgutt_ZW.fasta
 done
 ```
 
@@ -97,8 +105,15 @@ done
 
 Let's check this has worked by extracting the header lines from the fasta file again. Short chromosome names should be printed to your screen.
 ```
-cat *.fasta | grep "chr"
+cat Lcass_2_Tgutt_ZW.fasta | grep "chr"
 ```
+
+STEP 6: Close tmux session (control +b followed by x)
+
+
+# <---- STOP HERE 
+
+
 
 ### Transfer psudochromosome assembly to ARC cluster
 Due to memory demands we will need to conduct the read processing (filtering and mapping) using the ARC HTC cluster
