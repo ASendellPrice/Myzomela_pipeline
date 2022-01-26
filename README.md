@@ -157,15 +157,29 @@ AMB2_FDSW202513073-1r_HHG3GDSXY_L3_1.fq.gz
 **ALSO NOTE:** Not all samples have the same number of read pairs present in their raw_data directories. Here ABY76 and AMB1 both have a single pair of sequencing reads, whereas AMB2 has two. This is because AMB2 has been sequenced across multiple (2) sequencing lanes (likely this sample was of low concentration and required twice the sequencing effort to produce the data quantity we requested).
 
 ### ASSUMPTION 2:
-The working directory contains the text file "samples.txt" which lists the samples we are going to work with.
+The working directory contains the text file "samples.txt" which lists the samples we are going to work with. This can be quickly generated like so:
+```
+ls raw_data > samples.txt
+```
 
 ### ASSUMPTION 3:
-The reference genome we want to use is stored in directory "Ref_Genome".
+Our reference genome has been indexed using "bwa index". This can be done by running the following command from the directory containing the psuedo-chromosome assembly:
+```
+/data/Users/Sonya_Myzomela/BIN/bwa/bwa index Lcass_2_Tgutt_ZW.fasta
+```
+Note: this can take a while to index, so best to do from a tmux session
+
+### RUNNING THE SCRIPT:
+
+If the three assumptions are met we can run the script like so:
+```
+source RawReads2SampleBams.sh samples.txt /data/Users/Sonya_Myzomela/Lcass_2_Tgutt_ZW/Lcass_2_Tgutt_ZW.fasta
+```
 
 
 
 
-
+### <- STOP HERE
 
 
 
