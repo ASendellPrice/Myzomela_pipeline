@@ -58,8 +58,6 @@ STEP 8: Detatch from session
 
 This will take a few hours to run, so detatch from tmux session using cntrl+b followed by d
 
-# <---- CONTINUE FROM HERE 
-
 ## Editing the chromosome names in the pseudochromosome assembly
 
 Chromosemble will output a psuedoassembly in fasta format. This file consists of a header line specifying the chromosome (or scaffold) name followed by the sequence. Below is a screenshot showing the first few lines of the pseudoassembly.
@@ -105,9 +103,7 @@ cat Lcass_2_Tgutt_ZW.fasta | grep "chr"
 STEP 6: Close tmux session (control +b followed by x)
 
 
-# <---- STOP HERE 
-
-
+# <---- CONTINUE FROM HERE 
 
 ### Transfer psudochromosome assembly to ARC cluster
 Due to memory demands we will need to conduct the read processing (filtering and mapping) using the ARC HTC cluster
@@ -115,6 +111,19 @@ Due to memory demands we will need to conduct the read processing (filtering and
 ```
 rsync -S -av Lcass_2_Tgutt_ZW SSO@htc-login.arc.ox.ac.uk:/data/zool-zir/Myzomela/
 ```
+
+### Filter and align myzomela reads to pseudoassembly
+
+First login to the ARC htc cluster and move to the Myzomela directory
+```
+SSO@htc-login.arc.ox.ac.uk
+cd 
+```
+
+
+
+
+
 
 
 
