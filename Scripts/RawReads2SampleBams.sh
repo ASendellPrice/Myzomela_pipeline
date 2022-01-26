@@ -1,12 +1,4 @@
 #!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --time=62:00:00
-#SBATCH --array=1-150:1
-#SBATCH --job-name=Filter2Bam_Pipeline
-#SBATCH --output=Filter2Bam.%A_%a.out
-#SBATCH --error=Filter2Bam.%A_%a.error
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
 
 #######################################################################################################
 # SET SAMPLE NAME AND DIRECTORY
