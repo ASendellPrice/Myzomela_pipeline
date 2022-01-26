@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Submit like so:
+# source RawReads2SampleBams.sh SAMPLE_LIST REF
+
 for SAMPLE_NAME in $(cat $1)
 do
 
@@ -59,7 +62,7 @@ do
   # Define path to BWA and reference assembly
   # Note: If not already done, will need to index reference assembly ($BWA index $REF)
   BWA=/data/Users/Sonya_Myzomela/BIN/bwa/bwa
-  REF=/data/Users/Sonya_Myzomela/Lcass_2_Tgutt_ZW/Lcass_2_Tgutt_ZW.fasta
+  REF=$2
   
   # For each pair of reads conduct mapping using BWA MEM
   for ReadPair in `ls Filtered_${SAMPLE_NAME}_*_1.fq.gz | cut -f1,2,3,4,5 -d'_'`
