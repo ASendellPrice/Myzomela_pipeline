@@ -41,7 +41,7 @@ cd $SAMPLE_DIRECTORY
 
 # STEP 1:
 # Define path to Fastp:
-FASTP=/data/zool-zir/BIN/fastp
+FASTP=/data/Users/Sonya_Myzomela/BIN/fastp
 
 # STEP 2:
 # Set up for loop to conduct filtering for each read pair
@@ -73,36 +73,23 @@ done
 #######################################################################################################
 
 # STEP 1:
-# Load required modules in ARC
-module load java/1.8.0
-module load samtools
-module load bowtie2
+# Define path to BWA and reference assembly
+# Note: If not already done, will need to index reference assembly ($BWA index $REF)
+
+BWA=/data/Users/Sonya_Myzomela/BIN/bwa/bwa
+REF=/data/Users/Sonya_Myzomela/Lcass_2_Tgutt_ZW/Lcass_2_Tgutt_ZW.fasta
 
 # STEP 2:
-# Specify "plate" name for sequencing run
-PLATE=Novogene_WGS_2020
-
-# STEP 3:
-# Specify path to reference genome (cornetti assembly) including file prefix "ZOLAv0"
-GENOME_DB=/data/zool-zir/Myzomela/Ref_Genome/L_cass
-
-# STEP 4:
-# Move into directory containing sample's filtered reads
-cd /data/zool-zir/Myzomela/filtered_reads/${SAMPLE_NAME}
-
-# STEP 5:
-# For each pair of reads conduct mapping using bowtie2
-for ReadPair in $(ls Filtered_${SAMPLE_NAME}_*_1.fq.gz | cut -f1,2,3,4,5 -d'_')
+# For each pair of reads conduct mapping using BWA MEM
+for ReadPair in `ls Filtered_${SAMPLE_NAME}_*_1.fq.gz | cut -f1,2,3,4,5 -d'_'`
 do
-  	bowtie2 -x $GENOME_DB \
-    -1 ${ReadPair}_1.fq.gz \
-    -2 ${ReadPair}_2.fq.gz \
-    --rg-id $ReadPair --rg SM:$SAMPLE_NAME --rg LB:$PLATE \
-    --rg PU:$PLATE --rg PL:illumina 2> ${ReadPair}.log  | \
-    samtools view -bhS - | \
-    samtools sort - > ${ReadPair}.bam
+  	$BWA mem $REF \
+  	${ReadPair}_1.fq.gz \
+  	${ReadPair}_2.fq.gz	\
+  	-R "@RG\tID:${ReadPair}\tSM:${SAMPLE_NAME}" \
+  	| samtools view -bS - \
+  	| samtools sort - > ${ReadPair}.bam
 done
-
 
 #######################################################################################################
 # MERGE SAMPLE BAMS INTO A SINGLE FILE
