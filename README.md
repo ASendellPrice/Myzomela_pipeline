@@ -105,16 +105,17 @@ STEP 6: Close tmux session (control +b followed by x)
 
 # <---- CONTINUE FROM HERE 
 
-### Transfer psudochromosome assembly to ARC cluster
-Due to memory demands we will need to conduct the read processing (filtering and mapping) using the ARC HTC cluster
-**Note: You will need to replace SSO with your username, you will also be prompted for your ARC password**
-```
-rsync -S -av Lcass_2_Tgutt_ZW SSO@htc-login.arc.ox.ac.uk:/data/zool-zir/Myzomela/
-```
-
 ### Filter and align myzomela reads to pseudoassembly
 
-First login to the ARC htc cluster and move to the Myzomela directory
+Our raw sequencing reads need to pass through a number of bioinformatic steps before we can call SNPs. The main steps are as follows:
+
+* Filter raw sequencing reads to remove any sequencing adapter content/duplicates and remove bases of low quality - conducted using [fastp](https://github.com/OpenGene/fastp).
+* Map filtered sequencing reads to a reference genome of choice (in our case *Lichenostomus cassidix*) - conducted using [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml).
+* As most of the samples have been sequenced across multiple lanes we have multiple reads pairs and therefore multiple bams per sample. Where samples have multiple bams we will merge them using the aptly named "merge" command of [samtools](http://satsuma.sourceforge.net). Merged bams will then be indexed using the samtools "index" command.
+
+All three of these steps are conducted using the pipeline (RawReads2SampleBams.sh) that I have developed for our Novogene sequencing data. This script is saved in a shared folder in project "zool-zir" and can be copied to our working directory like so:
+
+
 ```
 SSO@htc-login.arc.ox.ac.uk
 cd 
