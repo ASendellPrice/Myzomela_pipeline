@@ -173,7 +173,7 @@ Note: this can take a while to index, so best to do from a tmux session
 
 If the three assumptions are met we can run the script like so:
 ```
-source RawReads2SampleBams.sh samples.txt /data/Users/Sonya_Myzomela/Lcass_2_Tgutt_ZW/Lcass_2_Tgutt_ZW.fasta
+source Scripts/RawReads2SampleBams.sh samples.txt /data/Users/Sonya_Myzomela/Lcass_2_Tgutt_ZW/Lcass_2_Tgutt_ZW.fasta
 ```
 
 
