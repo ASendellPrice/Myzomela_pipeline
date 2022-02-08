@@ -203,15 +203,16 @@ nano pop1.bam.list
 3. Now do the same for population 2
 
 STEP 4: Run script "Calc_GlobalFST_WindowedFST.sh" which will do the following for each chromosome:
-1. Calculate the allele frequency likelihoods for pop1 and pop2 using angsd
-2. Calculate the 2D "folded" site frequency spectrum
-3. Calculate FST on a per site basis
-4. Calculate global (whole chromosome) estimate of FST
-5. Calculate FST in windows (currently set to non-overlapping 50kb windows)
-View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/Scripts/Calc_GlobalFST_WindowedFST.sh).
+1. Identify polymorphic sites
+2. Calculate the allele frequency likelihoods for pop1 and pop2 using angsd
+3. Calculate the 2D "folded" site frequency spectrum
+4. Calculate FST on a per site basis
+5. Calculate global (whole chromosome) estimate of FST
+6. Calculate FST in windows (currently set to non-overlapping 50kb windows)
+View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/Scripts/Calc_GlobalFST_WindowedFST_SNPsOnly.sh).
 
 ```
-source ../Scripts/Calc_GlobalFST_WindowedFST.sh
+source ../Scripts/Calc_GlobalFST_WindowedFST_SNPsOnly.sh
 ```
 
 ##STOP HERE!
