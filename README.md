@@ -177,82 +177,45 @@ source Scripts/RawReads2SampleBams.sh samples.txt /data/Users/Sonya_Myzomela/Lca
 ```
 
 
+## ESTIMATING FST FROM GENOTYPE LIKELIHOODS
+The following outlines how you can estimate fst (windowed and global) between a pair of populations. Note: You will need to decide which samples will form the populations you wish to contrast, these could be geographical comparisons e.g. Tanna vs. Mainland, or could be based on sex e.g. Vanuatu males vs Vanuatu females. This step by step tutorial is based on the FST pages of ANGSD, see [link](http://www.popgen.dk/angsd/index.php/Fst).
 
+STEP 1: Log into nesoi and create a new detachable session (we have done this before so I will leave it to you to figure out)
 
-### <- STOP HERE
-
-
-
-
-## STEP 3: Create sample list
-Before we dive into the bioinformatics pipeline, we will need to create a list of samples we want to use in the planned analyses. Some analyses (e.g. introgression, SFS, phylogeny building) require use of an outgroup, so if you plan to conduct these you will need to identify publically available WGS data from a suitable outgroup (or we can use other *Meliphagidae* samples included in the Novogene dataset).
-
-The sample list you create needs to be a simple text file (called samples.txt) with one sample ID per line. Like below:
-
+STEP 2: Move into the following directory '/data/Users/Sonya_Myzomela/' and create a new directory for the fst analysis and move into it (call it something informative). 
 ```
-ABY15
-ABY76
-AMB1
-```
-This can be created with nano (a command line text editor). To close nano, press control + x, hit y for "yes" and hit enter (to confirm you want to save).
-
-```
-nano samples.txt
+mkdir Fst_pop1_vs_pop2
+cd Fst_pop1_vs_pop2
 ```
 
-## STEP 4: Filter raw sequencing reads, map filtered reads to reference genome, and create a single bam file per sample
+STEP 3: Create a list of bam files for each sample within a given population. I have transfered bam files from arc to nesoi, they are stored here: '/data/Users/Sonya_Myzomela/sample_bams'. 
 
-Our raw sequencing reads need to pass through a number of bioinformatic steps before we can call SNPs. The main steps are as follows:
+1. You can get a list of all the sample bams available like so:
+```
+ls /data/Users/Sonya_Myzomela/sample_bams_ARC/*.bam
+```
 
-* Filter raw sequencing reads to remove any sequencing adapter content/duplicates and remove bases of low quality - conducted using [fastp](https://github.com/OpenGene/fastp).
-* Map filtered sequencing reads to a reference genome of choice (in our case *Lichenostomus cassidix*) - conducted using [bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml).
-* As most of the samples have been sequenced across multiple lanes we have multiple reads pairs and therefore multiple bams per sample. Where samples have multiple bams we will merge them using the aptly named "merge" command of [samtools](http://satsuma.sourceforge.net). Merged bams will then be indexed using the samtools "index" command.
+2. Create your list file for population 1 using nano
+```
+nano pop1.bam.list
+```
 
-All three of these steps are conducted using the pipeline (RawReads2SampleBams.sh) that I have developed for our Novogene sequencing data. This script is saved in a shared folder in project "zool-zir" and can be copied to our working directory like so:
+3. Now do the same for population 2
+
+STEP 4: Run script "Calc_GlobalFST_WindowedFST.sh" which will do the following for each chromosome:
+1. Calculate the allele frequency likelihoods for pop1 and pop2 using angsd
+2. Calculate the 2D "folded" site frequency spectrum
+3. Calculate FST on a per site basis
+4. Calculate global (whole chromosome) estimate of FST
+5. Calculate FST in windows (currently set to non-overlapping 50kb windows)
+View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/Scripts/Calc_GlobalFST_WindowedFST.sh).
 
 ```
-#Create a directory where we will store scripts
-mkdir Scripts
-#Copy "RawReads2SampleBams.sh" from shared folder to "Scripts" directory
-cp /data/zool-zir/Bioinformatics_pipelines/RawReads2SampleBams.sh Scripts/
+source ../Scripts/Calc_GlobalFST_WindowedFST.sh
 ```
 
 
 
-
-
-
-
-```
-#This is what the first nine lines of the script look like:
-#!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --time=62:00:00
-#SBATCH --array=1-150:1
-#SBATCH --job-name=Filter2Bam_Pipeline
-#SBATCH --output=Filter2Bam.%A_%a.out
-#SBATCH --error=Filter2Bam.%A_%a.error
-#SBATCH --mail-type=FAIL
-#SBATCH --mail-user=ashley.sendell-price@zoo.ox.ac.uk
-
-```
-
-**Note:** Also need to update line nine so that notification emails are sent to the correct email address.
-
-## STEP 5: Submitting the script
-
-Running the pipeline is simply a case of submitting the following command on arcus-htc:
-
-```
-sbatch Scripts/RawReads2SampleBams.sh
-```
-
-## STEP 6: Downloading fastp QC reports
-Open a new terminal and from a directory on your laptop where you want to save the fastp reports type the following command (changing SSO to your username):
-
-```
-scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/fastp_QC_reports/* ./
-```
 
 ## STEP 7: Estimating genotype likelihoods (GLs) and imputing genotypes (GTs)
 A challenge of working with low coverage sequencing data is that we cannot be 100% certain of the genotypes (GTs) of our samples. A solution to this challenge is to use a probabilistic measurement of the genotypes in the form of genotype likelihoods (GLs) and/or genotype probabilities (PLs). There are an increasing number of tools that take genotype likelihoods/probabilities as input for downstream analyses, however where traditional genotype inputs are reruired GTs can be imputed from GLs/PLs based on local linkage patterns. 
@@ -276,42 +239,12 @@ We can submit this script with the simple command:
 sbatch GL_Estimation_GT_Imputation.sh
 ```
 
-## STEP 8: Merging single scaffold files
 
-To be added ...
 
-## STEP 9: Logging into Nesoi and migrating datasets
+##STOP HERE!
 
-Now that the big bioinformatics work has been done we can now move from ARC to Nesoi. Like ARC we will access the server using a secure shell. Type the following command (replace SSO with your single sign-on), after which you will be prompted for your password (different from ARC)
-```
-ssh SSO@zoo-nesoi.zoo.ox.ac.uk
-```
 
-Welcome to Nesoi goddesses of islands!! You will now be in your home directory "/home/zoo/" followed by your SSO. You can check this using the print working directory command (pwd)
-```
-pwd
-```
 
-To keep things tidy we will now create a directory for the Myzomela project and move into it
-```
-mkdir Myzomela
-cd Myzomela
-```
-
-Copying whole genome beagle and VCF files from ARC (you will be prompted for your ARC password)
-```
-scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/Lcass.v1_WholeGenome.* ./
-```
-
-Copy bam.list previously used by ANGSD (again, you will be prompted for your ARC password)
-```
-scp -r SSO@arcus-b.arc.ox.ac.uk:/data/zool-zir/Myzomela/EstimateGLsImputeGTs/bam.list ./
-```
-
-Copy scripts from GitHub
-```
-git clone https://github.com/ASendellPrice/Myzomela_pipeline
-```
 
 ## STEP 10: Launch a detatchable shell using tmux
 Unlike ARC where we submit jobs to a job scheduler, on Nesoi we run jobs interactively in real time. This is great as means we dont have to wait for our analyses to leave a queue before they starts. However, if your laptop disconnects from the server the analysis will stop as ssh requires a constant connection. This can be overcome by launching a detatchable session once we are logged into the server using the command tmux (terminal multiplexer).
@@ -383,39 +316,3 @@ PC1_PC2 <- cbind(sample_ids, PC1_PC2)
 
 
 
-## ESTIMATING FST FROM GENOTYPE LIKELIHOODS
-The following outlines how you can estimate fst (windowed and global) between a pair of populations. Note: You will need to decide which samples will form the populations you wish to contrast, these could be geographical comparisons e.g. Tanna vs. Mainland, or could be based on sex e.g. Vanuatu males vs Vanuatu females. This step by step tutorial is based on the FST pages of ANGSD, see [link](http://www.popgen.dk/angsd/index.php/Fst).
-
-STEP 1: Log into nesoi and create a new detachable session (we have done this before so I will leave it to you to figure out)
-
-STEP 2: Move into the following directory '/data/Users/Sonya_Myzomela/' and create a new directory for the fst analysis and move into it (call it something informative). 
-```
-mkdir Fst_pop1_vs_pop2
-cd Fst_pop1_vs_pop2
-```
-
-STEP 3: Create a list of bam files for each sample within a given population. I have transfered bam files from arc to nesoi, they are stored here: '/data/Users/Sonya_Myzomela/sample_bams'. 
-
-1. You can get a list of all the sample bams available like so:
-```
-ls /data/Users/Sonya_Myzomela/sample_bams/*.bam
-```
-
-2. Create your list file for population 1 using nano
-```
-nano pop1.bam.list
-```
-
-3. Now do the same for population 2
-
-STEP 4: Run script "Calc_GlobalFST_WindowedFST.sh" which will do the following for each chromosome:
-1. Calculate the allele frequency likelihoods for pop1 and pop2 using angsd
-2. Calculate the 2D "folded" site frequency spectrum
-3. Calculate FST on a per site basis
-4. Calculate global (whole chromosome) estimate of FST
-5. Calculate FST in windows (currently set to non-overlapping 50kb windows)
-View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blob/main/Scripts/Calc_GlobalFST_WindowedFST.sh).
-
-```
-source ../Scripts/Calc_GlobalFST_WindowedFST.sh
-```
