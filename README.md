@@ -214,6 +214,13 @@ View script online [here](https://github.com/ASendellPrice/Myzomela_pipeline/blo
 source ../Scripts/Calc_GlobalFST_WindowedFST.sh
 ```
 
+##STOP HERE!
+
+
+
+
+
+
 
 
 
@@ -241,23 +248,11 @@ sbatch GL_Estimation_GT_Imputation.sh
 
 
 
-##STOP HERE!
 
 
 
 
-## STEP 10: Launch a detatchable shell using tmux
-Unlike ARC where we submit jobs to a job scheduler, on Nesoi we run jobs interactively in real time. This is great as means we dont have to wait for our analyses to leave a queue before they starts. However, if your laptop disconnects from the server the analysis will stop as ssh requires a constant connection. This can be overcome by launching a detatchable session once we are logged into the server using the command tmux (terminal multiplexer).
 
-Launch a new tmux session called "mysession" (you can call it anything you like)
-```
-tmux new -s mysession
-```
-
-To detatch from the session press control b, immediately followed by d. You can then reattach to the session using:
-```
-tmux a -t mysession
-```
 
 ## STEP 11: Conducting PCA and admixture analyses
 To get an idea of the genetic structuring of the *Myzomela* samples we will conduct two different analyses:
