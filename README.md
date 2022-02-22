@@ -192,7 +192,7 @@ STEP 3: Create a list of bam files for each sample within a given population. I 
 
 1. You can get a list of all the sample bams available like so:
 ```
-ls /data/Users/Sonya_Myzomela/sample_bams_ARC/*.bam
+ls /data/Users/Sonya_Myzomela/sample_bams/*.bam
 ```
 
 2. Create your list file for population 1 using nano
